@@ -4,9 +4,10 @@ import android.Manifest;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 
 import com.eddieowens.receivers.BoundaryEventBroadcastReceiver;
 import com.facebook.react.bridge.Arguments;
@@ -36,7 +37,7 @@ public class RNBoundaryModule extends ReactContextBaseJavaModule implements Life
     public static final String ON_EXIT = "onExit";
     public static final String GEOFENCE_DATA_TO_EMIT = "com.eddieowens.GEOFENCE_DATA_TO_EMIT";
 
-    private GeofencingClient mGeofencingClient;
+    private final GeofencingClient mGeofencingClient;
     private PendingIntent mBoundaryPendingIntent;
 
     RNBoundaryModule(ReactApplicationContext reactContext) {
@@ -235,6 +236,7 @@ public class RNBoundaryModule extends ReactContextBaseJavaModule implements Life
         return ActivityCompat.checkSelfPermission(getReactApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION);
     }
 
+    @NonNull
     @Override
     public String getName() {
         return "RNBoundary";

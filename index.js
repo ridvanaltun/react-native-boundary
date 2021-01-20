@@ -9,6 +9,8 @@ const boundaryEventEmitter = new NativeEventEmitter(RNBoundary);
 const Events = {
   EXIT: "onExit",
   ENTER: "onEnter",
+  ERROR: "onError",
+  DWELL: "onDwell",
 };
 
 export {

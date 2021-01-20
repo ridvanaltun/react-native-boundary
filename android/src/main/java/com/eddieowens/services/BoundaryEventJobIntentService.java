@@ -25,6 +25,8 @@ public class BoundaryEventJobIntentService extends JobIntentService {
 
     public static final String ON_ENTER = "onEnter";
     public static final String ON_EXIT = "onExit";
+    public static final String ON_DWELL = "onDwell";
+    public static final String ON_ERROR = "onError";
 
     public BoundaryEventJobIntentService() {
         super();
@@ -38,6 +40,9 @@ public class BoundaryEventJobIntentService extends JobIntentService {
         Log.i(TAG, "Geofence transition: " + geofencingEvent.getGeofenceTransition());
         if (geofencingEvent.hasError()) {
             Log.e(TAG, "Error in handling geofence " + GeofenceErrorMessages.getErrorString(geofencingEvent.getErrorCode()));
+            final ArrayList<String> error = new ArrayList<>();
+            error.add("Error in handling geofence " + GeofenceErrorMessages.getErrorString(geofencingEvent.getErrorCode()));
+            sendEvent(this.getApplicationContext(), ON_ERROR, error);
             return;
         }
         switch (geofencingEvent.getGeofenceTransition()) {
@@ -56,6 +61,14 @@ public class BoundaryEventJobIntentService extends JobIntentService {
                     exitingGeofences.add(geofence.getRequestId());
                 }
                 sendEvent(this.getApplicationContext(), ON_EXIT, exitingGeofences);
+                break;
+            case Geofence.GEOFENCE_TRANSITION_DWELL:
+                Log.i(TAG, "Dwell geofence event detected. Sending event.");
+                final ArrayList<String> dwellGeofences = new ArrayList<>();
+                for (Geofence geofence : geofencingEvent.getTriggeringGeofences()) {
+                    dwellGeofences.add(geofence.getRequestId());
+                }
+                sendEvent(this.getApplicationContext(), ON_DWELL, dwellGeofences);
                 break;
         }
     }

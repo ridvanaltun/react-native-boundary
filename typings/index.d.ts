@@ -3,6 +3,8 @@ import {EmitterSubscription} from 'react-native';
 export enum Events {
     EXIT = 'onExit',
     ENTER = 'onEnter',
+    ERROR = 'onError',
+    DWELL = 'onDwell',
 }
 
 export interface Boundary {

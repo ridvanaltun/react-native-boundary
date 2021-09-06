@@ -5,6 +5,7 @@ const {RNBoundary} = NativeModules;
 const TAG = "RNBoundary";
 
 const boundaryEventEmitter = new NativeEventEmitter(RNBoundary);
+console.log(RNBoundary)
 
 const Events = {
   EXIT: "onExit",

@@ -66,6 +66,16 @@ public class RNBoundaryModule extends ReactContextBaseJavaModule implements Life
     }
 
     @ReactMethod
+    public void addListener(String eventType, Promise promise) {
+        promise.resolve(true);
+    }
+
+    @ReactMethod
+    public void removeListeners(int event, Promise promise) {
+        promise.resolve(true);
+    }
+
+    @ReactMethod
     public void remove(final String boundaryRequestId, Promise promise) {
         removeGeofence(promise, Collections.singletonList(boundaryRequestId));
     }

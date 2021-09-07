@@ -66,13 +66,13 @@ public class RNBoundaryModule extends ReactContextBaseJavaModule implements Life
     }
 
     @ReactMethod
-    public void addListener(String eventType, Promise promise) {
-        promise.resolve(true);
+    public void addListener(String eventType) {
+        
     }
 
     @ReactMethod
-    public void removeListeners(int event, Promise promise) {
-        promise.resolve(true);
+    public void removeListeners(int event) {
+        
     }
 
     @ReactMethod

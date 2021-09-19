@@ -19,8 +19,6 @@ export {
 
 const HeadlessBoundaryEventTask = async ({event, ids}) => {
   console.log(event, ids);
-  console.log(boundaryEventEmitter)
-  console.log(boundaryEventEmitter.listeners(event).length)
   boundaryEventEmitter.emit(event, ids)
   console.log("HeadlessBoundaryEventTask finished")
 };

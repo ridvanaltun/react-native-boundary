@@ -88,8 +88,7 @@ public class BoundaryEventJobIntentService extends JobIntentService {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O || isAppOnForeground(context)) {
             context.startService(headlessBoundaryIntent);
             HeadlessJsTaskService.acquireWakeLockNow(context);
-        }
-        else {
+        } else {
             // Since Oreo (8.0) and up they have restricted starting background services, and it will crash the app
             // But we can create a foreground service and bring an notification to the front
             // http://stackoverflow.com/questions/8489993/check-android-application-is-in-foreground-or-not

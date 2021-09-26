@@ -4,6 +4,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application>
         <!-- Services -->
@@ -14,10 +15,26 @@
             android:permission="android.permission.BIND_JOB_SERVICE" />
         <service android:name="com.eddieowens.services.BoundaryEventHeadlessTaskService" />
 
+        <service
+            android:name=".services.BoundaryBootJobIntentService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service android:name="com.eddieowens.services.BoundaryBootHeadlessTaskService" />
+
         <!-- Receivers -->
         <receiver
             android:name=".receivers.BoundaryEventBroadcastReceiver"
             android:enabled="true" />
+
+        <receiver
+            android:name=".receivers.BoundaryBootBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>
   

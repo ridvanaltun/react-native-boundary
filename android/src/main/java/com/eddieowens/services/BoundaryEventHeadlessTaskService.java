@@ -20,7 +20,6 @@ import com.facebook.react.HeadlessJsTaskService;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.jstasks.HeadlessJsTaskConfig;
 
-import java.util.Map;
 import java.util.Random;
 
 import static com.eddieowens.RNBoundaryModule.TAG;
@@ -35,10 +34,10 @@ public class BoundaryEventHeadlessTaskService extends HeadlessJsTaskService {
     protected HeadlessJsTaskConfig getTaskConfig(Intent intent) {
         Bundle extras = intent.getExtras();
         return new HeadlessJsTaskConfig(
-            "OnBoundaryEvent",
-            extras != null ? Arguments.fromBundle(extras) : null,
-            5000,
-            true);
+                "OnBoundaryEvent",
+                extras != null ? Arguments.fromBundle(extras) : null,
+                5000,
+                true);
     }
 
     public NotificationCompat.Builder getNotificationBuilder() {
@@ -60,10 +59,10 @@ public class BoundaryEventHeadlessTaskService extends HeadlessJsTaskService {
 
         // Notification for the foreground service
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
-            .setContentTitle(title)
-            .setContentText(text)
-            .setOngoing(true)
-            .setColor(ContextCompat.getColor(context, R.color.accent_material_light));
+                .setContentTitle(title)
+                .setContentText(text)
+                .setOngoing(true)
+                .setColor(ContextCompat.getColor(context, R.color.accent_material_light));
 
         if (iconResource > -1) {
             builder.setSmallIcon(iconResource);

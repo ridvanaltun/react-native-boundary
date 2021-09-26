@@ -1,10 +1,15 @@
+import { EventEmitter } from 'react-native';
 import {NativeEventEmitter, NativeModules, AppRegistry} from 'react-native';
 
 const {RNBoundary} = NativeModules;
 
 const TAG = "RNBoundary";
 
+const BOOT_EVENT = "onBoot"
+
 const boundaryEventEmitter = new NativeEventEmitter(RNBoundary);
+
+const bootEventEmitter = new EventEmitter();
 
 const Events = {
   EXIT: "onExit",
@@ -23,7 +28,13 @@ const HeadlessBoundaryEventTask = async ({event, ids}) => {
   console.log("HeadlessBoundaryEventTask finished")
 };
 
+const HeadlessDeviceBootEventTask = async () => {
+  console.log('Device start')
+  bootEventEmitter.emit(BOOT_EVENT)
+}
+
 AppRegistry.registerHeadlessTask('OnBoundaryEvent', () => HeadlessBoundaryEventTask);
+AppRegistry.registerHeadlessTask('OnBoundaryBoot', () => HeadlessDeviceBootEventTask);
 
 export default {
   add: boundary => {
@@ -50,6 +61,13 @@ export default {
     }
 
     return boundaryEventEmitter.addListener(event, callback);
+  },
+
+  onBoot: (callback) => {
+    if (typeof callback !== 'function') {
+      throw TAG + ': callback function must be provided';
+    }
+    return bootEventEmitter.addListener(BOOT_EVENT, callback);
   },
 
   off: (event) => {

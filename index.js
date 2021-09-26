@@ -1,15 +1,15 @@
-import { EventEmitter } from 'react-native';
+import { DeviceEventEmitter } from 'react-native';
 import {NativeEventEmitter, NativeModules, AppRegistry} from 'react-native';
 
 const {RNBoundary} = NativeModules;
 
 const TAG = "RNBoundary";
 
-const BOOT_EVENT = "onBoot"
+const RE_REGISTER_EVENT = "reregister_required"
 
 const boundaryEventEmitter = new NativeEventEmitter(RNBoundary);
 
-const bootEventEmitter = new EventEmitter();
+const reRegisterEventEmitter = new DeviceEventEmitter();
 
 const Events = {
   EXIT: "onExit",
@@ -30,7 +30,7 @@ const HeadlessBoundaryEventTask = async ({event, ids}) => {
 
 const HeadlessDeviceBootEventTask = async () => {
   console.log('Device start')
-  bootEventEmitter.emit(BOOT_EVENT)
+  reRegisterEventEmitter.emit(RE_REGISTER_EVENT)
 }
 
 AppRegistry.registerHeadlessTask('OnBoundaryEvent', () => HeadlessBoundaryEventTask);
@@ -63,11 +63,11 @@ export default {
     return boundaryEventEmitter.addListener(event, callback);
   },
 
-  onBoot: (callback) => {
+  onReRegisterRequired: (callback) => {
     if (typeof callback !== 'function') {
       throw TAG + ': callback function must be provided';
     }
-    return bootEventEmitter.addListener(BOOT_EVENT, callback);
+    return reRegisterEventEmitter.addListener(RE_REGISTER_EVENT, callback);
   },
 
   off: (event) => {

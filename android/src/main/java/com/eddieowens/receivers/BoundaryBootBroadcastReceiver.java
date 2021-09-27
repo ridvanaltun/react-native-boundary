@@ -24,6 +24,8 @@ public class BoundaryBootBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.i(TAG, "Boundary device boot event");
-        JobIntentService.enqueueWork(context, BoundaryBootJobIntentService.class, 0, intent);
+        if("android.intent.action.BOOT_COMPLETED".equals(intent.getAction())) {
+            JobIntentService.enqueueWork(context, BoundaryBootJobIntentService.class, 0, intent);
+        }
     }
 }

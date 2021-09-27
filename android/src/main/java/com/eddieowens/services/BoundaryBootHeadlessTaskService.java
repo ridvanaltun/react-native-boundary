@@ -15,7 +15,7 @@ public class BoundaryBootHeadlessTaskService extends HeadlessJsTaskService {
         Bundle extras = intent.getExtras();
         return new HeadlessJsTaskConfig(
                 "OnBoundaryBoot",
-                extras != null ? Arguments.fromBundle(extras) : null,
+                extras != null ? Arguments.fromBundle(extras) : Arguments.createMap(),
                 5000,
                 true);
     }

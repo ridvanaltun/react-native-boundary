@@ -35,7 +35,7 @@ public class BoundaryEventHeadlessTaskService extends HeadlessJsTaskService {
         Bundle extras = intent.getExtras();
         return new HeadlessJsTaskConfig(
                 "OnBoundaryEvent",
-                extras != null ? Arguments.fromBundle(extras) : null,
+                extras != null ? Arguments.fromBundle(extras) : Arguments.createMap(),
                 5000,
                 true);
     }

@@ -34,7 +34,6 @@ const HeadlessDeviceBootEventTask = async () => {
 }
 
 AppRegistry.registerHeadlessTask('OnBoundaryEvent', () => HeadlessBoundaryEventTask);
-AppRegistry.registerHeadlessTask('OnBoundaryBoot', () => HeadlessDeviceBootEventTask);
 
 export default {
   add: boundary => {
@@ -67,7 +66,7 @@ export default {
     if (typeof callback !== 'function') {
       throw TAG + ': callback function must be provided';
     }
-    return reRegisterEventEmitter.addListener(RE_REGISTER_EVENT, callback);
+    AppRegistry.registerHeadlessTask('OnBoundaryBoot', callback);
   },
 
   off: (event) => {

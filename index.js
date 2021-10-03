@@ -19,9 +19,7 @@ export {
 }
 
 const HeadlessBoundaryEventTask = async ({event, ids}) => {
-  console.log(event, ids);
   boundaryEventEmitter.emit(event, ids)
-  console.log("HeadlessBoundaryEventTask finished")
 };
 
 AppRegistry.registerHeadlessTask('OnBoundaryEvent', () => HeadlessBoundaryEventTask);

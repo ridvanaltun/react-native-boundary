@@ -5,11 +5,7 @@ const {RNBoundary} = NativeModules;
 
 const TAG = "RNBoundary";
 
-const RE_REGISTER_EVENT = "reregister_required"
-
 const boundaryEventEmitter = new NativeEventEmitter(RNBoundary);
-
-const reRegisterEventEmitter = new DeviceEventEmitter();
 
 const Events = {
   EXIT: "onExit",
@@ -27,11 +23,6 @@ const HeadlessBoundaryEventTask = async ({event, ids}) => {
   boundaryEventEmitter.emit(event, ids)
   console.log("HeadlessBoundaryEventTask finished")
 };
-
-const HeadlessDeviceBootEventTask = async () => {
-  console.log('Device start')
-  reRegisterEventEmitter.emit(RE_REGISTER_EVENT)
-}
 
 AppRegistry.registerHeadlessTask('OnBoundaryEvent', () => HeadlessBoundaryEventTask);
 
